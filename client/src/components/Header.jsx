@@ -1,11 +1,32 @@
 import { Link, Navigate } from 'react-router-dom'
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import foody from '../assets/images/burger_banner.png'
 import { useEffect, useState } from 'react';
+import Badge from '@mui/material/Badge';
+import { styled } from '@mui/material/styles';
+import IconButton from '@mui/material/IconButton';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import LogoutIcon from '@mui/icons-material/Logout';
+import { Button } from '@mui/material';
+import { useSelector } from 'react-redux';
+import { cartProducts } from '../stores/cart/cartSlice';
+
+const StyledBadge = styled(Badge)(({ theme }) => ({
+  '& .MuiBadge-badge': {
+    right: -3,
+    top: 1,
+    padding: '0 4px',
+  },
+}));
 
 
 const Header = () => {
+    let badgeCount = 0;
+    const cart = useSelector(cartProducts);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    if(cart.length > 0) {
+        badgeCount = cart.length 
+    }
 
     const handleLogout = () => {
         sessionStorage.removeItem('token');
@@ -41,13 +62,20 @@ const Header = () => {
                 <Link to="/menu">Menu</Link>
                 <Link to="/coupn">Coupn</Link>
                 <Link to="/special">Special</Link>
-                <Link to="#about">New</Link>
+                <Link to="#about">About</Link>
             </div>
             <div className='flex items-center justify-center space-x-4 font-bold'>
                 <Link to="/cart">
-                    <ShoppingCartIcon />
+                    <IconButton aria-label="cart">
+                        <StyledBadge badgeContent={badgeCount} color="error">
+                            <ShoppingCartIcon style={{ fill: '#fff' }} />
+                        </StyledBadge>
+                    </IconButton>
                 </Link>
-                { isLoggedIn ? <button onClick={handleLogout} className='bg-yellow-500 py-1 px-3 rounded-sm'>Log Out</button> : 
+                { isLoggedIn ? 
+                    <Button  onClick={handleLogout} style={{ backgroundColor: "#f1c200" }} variant="contained" startIcon={<LogoutIcon />}>
+                        Log Out
+                      </Button>: 
                     <>
                         <Link to="/login">Log In</Link>
                         <Link to="/register">Sign Up</Link>
