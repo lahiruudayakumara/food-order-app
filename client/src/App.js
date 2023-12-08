@@ -1,10 +1,11 @@
 import './App.css';
+import MainRouter from './routes/MainRouter';
 
 function App() {
   return (
-    <h1 className="text-3xl font-bold underline">
-      food order app
-    </h1>
+    <div className='App'>
+      <MainRouter />
+    </div>
   );
 }
 
