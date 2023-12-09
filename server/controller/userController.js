@@ -8,16 +8,18 @@ const signup = async (req, res) => {
     try {
         const { name, email, password } = req.body;
 
+        const salt = await bcrypt.genSalt();
+        const hashedPassword = await bcrypt.hash(password, salt);
+
         const isEmail = await User.findOne({ email: email})
 
         if(isEmail) {
-            return res.status(200).json({ msg: "user already exists"})
+            return res.status(409).json({ msg: "user already exists"})
         }
     
-        const user = await new User({ name, email, password })
-
+        const user = new User({ name, email, password: hashedPassword })
         user.save()
-        return res.status(200).json({email, token});
+        return res.status(200).json({ msg: "sucess" , user : user});
         
     } catch (err) {
         return res.status(400).json({ data : err });
@@ -29,12 +31,12 @@ const login = async (req, res) => {
         const { email, password } = req.body;
         const user = await User.findOne({ email: email });
         if(!user) {
-            return res.status(400).json({ msg: "User does not exists"});
+            return res.status(409).json({ msg: "User does not exists"});
         }
 
-        const isMatch = await User.findOne({ password: password });
+        const isMatch = await bcrypt.compare(password, user.password);
         if(!isMatch) {
-            return res.status(400).json({ msg : "Invalid Creditional"});
+            return res.status(409).json({ msg : "Invalid Creditional"});
         }
 
         const userCopy = {...user.toObject()}
