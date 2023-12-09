@@ -5,6 +5,7 @@ import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import { useSelector } from "react-redux";
 import { cartProducts } from "../../stores/cart/cartSlice";
 import emptyCart from "../../assets/images/empty_cart.png"
+import { ProductsSummary } from "../../components/ProductsSummary";
 
 const Cart = () => {
   const cart = useSelector(cartProducts);
@@ -24,7 +25,7 @@ const Cart = () => {
     <div className="bg-white h-screen text-black mx-auto mt-2 border border-gray-200 p-4 md:w-2/3 rounded-lg shadow-md sm:p-6 lg:p-8">
             <Tabs list={tabs} onTabSwitch={handleTabSwitch} activeTab={currentTab} />
             <div className={`tabs ${currentTab !== 'Summary' ? 'hidden' : ''}`}>
-       
+                <ProductsSummary />
                 <div className="flex justify-end p-2">
                     <button variant="dark" className="flex items-center" onClick={()=>handleTabSwitch('Delivery')}>
                       <span className="mr-1">

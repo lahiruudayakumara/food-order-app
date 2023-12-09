@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { TabItem } from "./TabItem";
 
 export const Tabs = ({ list, activeTab, onTabSwitch}) => {

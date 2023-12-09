@@ -6,6 +6,7 @@ import PaymentSucess from '../pages/PaymentSucess'
 import Cart from '../pages/Cart'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
+import Menu from '../pages/Menu'
 
 const MainRouter = () => {
 
@@ -17,6 +18,7 @@ const MainRouter = () => {
             <Route path='/login' element={<Login />} />
             <Route path='/register' element={<Register />} />
             <Route path='/cart' element={<Cart />} />
+            <Route path='/menu' element={<Menu/>} />
             <Route path='/payment-sucess' element={<PaymentSucess />} />
         </Routes>
         <Footer/>        

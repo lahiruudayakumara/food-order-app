@@ -4,13 +4,14 @@ const cors = require('cors');
 
 const DBConnection = require('./config/dbConfig');
 const product = require('./routes/productRoutes');
-const user = require("./routes/userRoutes")
+const user = require("./routes/userRoutes");
+const category = require("./routes/categoryRoutes");
 
 require('dotenv').config();
 
 const app = express();
 app.use(cors());
-app.use(express.json())
+app.use(express.json());
 
 
 const PORT = process.env.PORT || 8080;
@@ -18,6 +19,7 @@ const PORT = process.env.PORT || 8080;
 // Routes
 app.use('/product', product);
 app.use('/user', user);
+app.use('/category', category)
 
 DBConnection().then(() => {
     app.listen(PORT, () => {
