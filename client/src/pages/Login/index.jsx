@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react"
-import { name } from "tar/lib/types"
 import { userlogin } from "../../api/userApi"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+  
+
 
 const Login = () => {
   const [isInvalid, setIsInvalid] = useState(false)
@@ -17,10 +21,13 @@ const Login = () => {
       window.location.href = '/';      
     } catch(err) {
       if(err.response.status === 400) {
-        return setIsInvalid(true);
+        return toast.error("Invalid Creditional!");
       }
+      return toast.warning("Somthing Went Wrong!");
     }
   }
+
+
 
     return (
       <div className="h-screen bg-black flex  items-center justify-center">
@@ -53,6 +60,7 @@ const Login = () => {
               </div>
               { isInvalid ? <p className="text-red-600">Invalid Password</p> : <></>}
               <button onClick={handleSubmit} className="bg-yellow-500 px-3 py-1 text-white w-20 rounded-sm">Login</button>
+              <ToastContainer />
             </form>
           </div>
         </div>
