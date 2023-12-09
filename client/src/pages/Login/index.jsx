@@ -3,9 +3,6 @@ import { userlogin } from "../../api/userApi"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-  
-
-
 const Login = () => {
   const [isInvalid, setIsInvalid] = useState(false)
   const [userData, setUserData] = useState({
