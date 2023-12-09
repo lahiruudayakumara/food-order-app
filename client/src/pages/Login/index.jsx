@@ -1,10 +1,9 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { userlogin } from "../../api/userApi"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
-  const [isInvalid, setIsInvalid] = useState(false)
   const [userData, setUserData] = useState({
     email: '',
     name: '',
@@ -19,12 +18,12 @@ const Login = () => {
     } catch(err) {
       if(err.response.status === 400) {
         return toast.error("Invalid Creditional!");
+      } else if (err.response.status === 409) {
+        return toast.error("User does not exists!");
       }
       return toast.warning("Somthing Went Wrong!");
     }
   }
-
-
 
     return (
       <div className="h-screen bg-black flex  items-center justify-center">
@@ -42,6 +41,7 @@ const Login = () => {
                   type="email"
                   onChange={(e) => setUserData({...userData, email: e.target.value}) }
                   className="block appearance-none text-sm w-full px-3 py-2 border border-gray-300 roundedn-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-gray-200 focus:border-gray-200"
+                  required
                 />
               </div>
               <div>
@@ -53,10 +53,12 @@ const Login = () => {
                   type="password"
                   onChange={(e) => setUserData({...userData, password: e.target.value})}
                   className="block text-sm appearance-none w-full px-3 py-2 border border-gray-300 roundedn-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-gray-200 focus:border-gray-200"
+                  required
                 />
               </div>
-              { isInvalid ? <p className="text-red-600">Invalid Password</p> : <></>}
+              { 
               <button onClick={handleSubmit} className="bg-yellow-500 px-3 py-1 text-white w-20 rounded-sm">Login</button>
+              }
               <ToastContainer />
             </form>
           </div>
