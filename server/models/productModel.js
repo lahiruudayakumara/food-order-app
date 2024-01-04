@@ -1,14 +1,12 @@
 const mongoose = require('mongoose');
 
-
-
 const ProductSchema = new mongoose.Schema(
     {
-        name: {
-            type: String, 
-            required: true
+        pId: { 
+            type: Number,
+            unique: true 
         },
-        adjective: {
+        name: {
             type: String, 
             required: true
         },
@@ -24,6 +22,10 @@ const ProductSchema = new mongoose.Schema(
             type: String,
             required: true
         },
+        rating: {
+            type: [Number],
+            default: []            
+        }
     }
 )
 
