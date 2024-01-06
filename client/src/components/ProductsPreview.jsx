@@ -3,7 +3,6 @@ import ProductPreviewCard from './ProductPreviewCard'
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import { useDispatch } from 'react-redux';
-import img from "../assets/images/pizza_banner.png"
 import { getProducts } from '../api/productApi';
 import { addToCart } from '../stores/cart/cartSlice';
 
@@ -45,9 +44,9 @@ const ProductsPreview = () => {
     <div className='container mx-auto pb-4 w-2/3 text-white'>
         <Carousel responsive={responsive} >
         {
-            product.length > 0 && product.map((product, index) => {
+            product.length > 0 && product.map((product) => {
                 return (
-                    <div key={index}  className='w-full p-3'>
+                    <div key={product._id}  className='w-full p-3'>
                         <ProductPreviewCard product={product} onAddProduct={onAddProduct} />
                     </div>
                 )
